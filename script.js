@@ -14,8 +14,8 @@ window.addEventListener('load', function () {
 
   // effect settings
   let size = canvas.width < canvas.height ? canvas.width * 0.1 : canvas.height * 0.1;
-  const maxLevel = 7;
-  const branches = 2;
+  const maxLevel = 10;
+  const branches = 1;
 
   let sides = 10;
   let scale = 0.85;
@@ -43,17 +43,21 @@ window.addEventListener('load', function () {
     drawFractal();
   });
 
+  let pointX = 0;
+  let pointY = size;
+
+
   function drawBranch(level) {
     if (level > maxLevel) return;
 
     ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(size, 0);
+    ctx.moveTo(pointX, pointY);
+    ctx.bezierCurveTo(0, size * spread * -3, size * 5, size * spread * 10, 0, 0);
     ctx.stroke();
 
     for (let i = 0; i < branches; i++) {
       ctx.save();
-      ctx.translate(size - (size / branches) * i, 0);
+      ctx.translate(pointX, pointY);
       ctx.scale(scale, scale);
 
       ctx.save();
@@ -64,7 +68,7 @@ window.addEventListener('load', function () {
       ctx.restore();
     }
     ctx.beginPath();
-    ctx.arc(0, size, size * 0.1, 0, Math.PI * 2);
+    ctx.arc(-size / 2, 0, 40, 0, Math.PI * 2);
     ctx.fill();
   }
 
@@ -76,7 +80,8 @@ window.addEventListener('load', function () {
     ctx.fillStyle = color;
     ctx.translate(canvas.width / 2, canvas.height / 2);
     for (let i = 0; i < sides; i++) {
-      ctx.rotate((Math.PI * 2) / sides);
+      ctx.scale(0.95, 0.95);
+      ctx.rotate((Math.PI * 6) / sides);
       drawBranch(0);
     }
     ctx.restore();
