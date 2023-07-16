@@ -26,6 +26,13 @@ window.addEventListener('load', function () {
   // contros
   const randomizeButton = document.getElementById('randomizeButton');
 
+  const slider_spread = document.getElementById('spread');
+  const label_spread = document.querySelector('[for="spread"]');
+  slider_spread.addEventListener('change', function (e) {
+    spread = e.target.value;
+    updateSliders();
+    drawFractal();
+  })
 
   function drawBranch(level) {
     if (level > maxLevel) return;
@@ -76,9 +83,16 @@ window.addEventListener('load', function () {
     color = 'hsl(' + Math.random() * 360 + ',100%, 50%)';
     lineWidth = Math.floor(Math.random() * 20 + 10);
   }
+
   randomizeButton.addEventListener('click', function () {
-    randomizeFractal()
+    randomizeFractal();
+    updateSliders();
     drawFractal();
   });
+
+  function updateSliders() {
+    slider_spread.value = spread;
+    label_spread.innerText = 'Spread:' + Number(spread).toFixed(1);
+  }
 
 });

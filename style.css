@@ -27,3 +27,9 @@ button {
   width: 225px;
   font-size: 20px;
 }
+
+label,
+input {
+  color: white;
+  font-size: 20px;
+}
