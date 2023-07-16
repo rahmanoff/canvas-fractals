@@ -17,7 +17,7 @@ window.addEventListener('load', function () {
   const maxLevel = 4;
   const branches = 2;
 
-  let sides = 5;
+  let sides = 6;
   let scale = 0.5;
   let spread = 0.1;
   let color = 'hsl(' + Math.random() * 360 + ',100%, 50%)';
@@ -33,6 +33,14 @@ window.addEventListener('load', function () {
     updateSliders();
     drawFractal();
   })
+
+  const slider_sides = document.getElementById('sides');
+  const label_sides = document.querySelector('[for="sides"]');
+  slider_sides.addEventListener('change', function (e) {
+    sides = e.target.value;
+    updateSliders();
+    drawFractal();
+  });
 
   function drawBranch(level) {
     if (level > maxLevel) return;
@@ -93,6 +101,8 @@ window.addEventListener('load', function () {
   function updateSliders() {
     slider_spread.value = spread;
     label_spread.innerText = 'Spread:' + Number(spread).toFixed(1);
+    slider_sides.value = sides;
+    label_sides.innerText = 'Sides:' + sides;
   }
-
+  updateSliders();
 });
